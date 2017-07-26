@@ -1,0 +1,47 @@
+body {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    background-color: #333;
+    color: #F0F0F0;
+}
+
+.console-content {
+    width: 100%;
+    padding: 30px 10%;
+}
+.console-content > span {
+    display: block;
+    line-height: 30px;
+}
+.console-content > span.warning {
+    color: #FFEE58;
+}
+.console-content > span.success {
+    color: #B2FF59;
+}
+.console-content > span.error {
+    color: #FF3D00;
+}
+.console-content > span > small {
+    float: right;
+    line-height: inherit;
+    font-size: 9px;
+}
+.console-content > span strong {
+    color: #FFF;
+}
+
+.console-content > span.header {
+    margin-top: 5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.console-content > span.discreet {
+    color: #999;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.console-content > span.debug {
+    display: none;
+}

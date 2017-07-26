@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DatabaseConfiguration>
+    <Matchers>
+        <ContentMatcher from="Numero della copia" to="identifier" type="textShort" />
+        <ContentMatcher from="Numero d'archivio della copia analogica" to="identifier" type="textShort" />
+        <ContentMatcher from="Data di creazione" to="creation_date" type="textShort" />
+        <ContentMatcher from="Quantità di supporti" to="quantity" type="number" />
+        <ContentMatcher from="Formato o dimensione" to="dimensions" type="textShort" />
+
+        <!-- Relational Fields -->
+        <ContentMatcher from="Descrittore geografico" to="geographical_descriptor" type="textShort" relation="places" />
+        <ContentMatcher from="Detentore dei diritti" to="rightholder" type="textShort" relation="institution" />
+        <!--<ContentMatcher from="Autore" to="author" type="textShort" relation="people" />-->
+        <ContentMatcher from="Autore" to="author_copy" type="textShort" relation="people" />
+        <ContentMatcher from="Colore" to="color" type="textShort" relation="colors" />
+        <ContentMatcher from="Informatore" to="contributor" type="textShort" relation="people" />
+        <ContentMatcher from="Tipo di supporto" to="format" type="textShort" relation="formats" />
+        <ContentMatcher from="Stato di conservazione del supporto" to="conservation_status" type="textShort" relation="conservation_status" />
+        <ContentMatcher from="Sostegno" to="support" type="text" relation="institution" />
+
+        <ContentMatcher from="Soggetto animato" to="descriptor_an" valueExtractor="people" relationMultiple="descriptor_an" type="text" />
+        <ContentMatcher from="Soggetto inanimato" to="descriptor_in" relationMultiple="descriptor_in" type="text" />
+        <ContentMatcher from="Classe iconografica" to="descriptor_icon" relationMultiple="descriptor_icon" type="text" />
+
+        <!-- Multilang / META-Fields -->
+
+        <ContentMatcher from="Titolo" to="title" type="text" multilang="true" />
+        <ContentMatcher from="Note/Commenti" to="comment" type="text" multilang="true" />
+
+        <!-- <ContentMatcher from="Dati tecnici" to="technical_data" type="text" multilang="true" /> -->
+        <!-- Obiges macht keinen sinn, die werte sind nur "Negativo su vetro con gelatina di bromuro d'argent, Carta, Bianco e nero" und bereits in color und format abgedeckt. -->
+
+    </Matchers>
+    <Connector>
+        <Connect table="images">
+            <ContentMatcher>title</ContentMatcher>
+            <ContentMatcher>support</ContentMatcher>
+            <ContentMatcher>comment</ContentMatcher>
+            <RelationMatcher>descriptor_an</RelationMatcher>
+            <RelationMatcher>descriptor_in</RelationMatcher>
+            <RelationMatcher>descriptor_icon</RelationMatcher>
+            <RelationMatcher>people</RelationMatcher>
+        </Connect>
+    </Connector>
+    <!-- id field with autoincrement and index will be added for all tables -->
+    <RelationTables>
+        <Table name="people" identifier="name" type="multiple">
+            <Field type="textShort">name</Field>
+            <Field type="textShort">forename</Field>
+            <Field type="textShort">date_of_birth</Field>
+            <Field type="textShort">date_of_death</Field>
+            <Field type="number">person_title</Field>
+            <Field type="number">profession</Field>
+        </Table>
+        <Table name="institution" identifier="name">
+            <Field type="textShort">name</Field>
+            <Field type="number">places</Field>
+        </Table>
+        <Table name="profession" identifier="name">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="person_title" identifier="name">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="places" identifier="name">
+            <Field type="textShort">name</Field>
+            <Field type="textShort">lat</Field>
+            <Field type="textShort">long</Field>
+        </Table>
+        <Table name="colors" identifier="name">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="formats" identifier="name">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="conservation_status" identifier="name">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="descriptor_in" identifier="name" type="multiple">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="descriptor_an" identifier="name" type="multiple">
+            <Field type="textShort">name</Field>
+        </Table>
+        <Table name="descriptor_icon" identifier="name" type="multiple">
+            <Field type="textShort">name</Field>
+        </Table>
+    </RelationTables>
+    <Types>
+        <text>TEXT</text>
+        <number>INT</number>
+        <textShort>VARCHAR (300)</textShort>
+    </Types>
+    <Base>
+        <ImagesTable>images</ImagesTable>
+        <MetaTable>meta</MetaTable>
+        <Languages>
+            <Lang>it</Lang>
+            <Lang>de</Lang>
+            <Lang>fr</Lang>
+            <Lang>en</Lang>
+        </Languages>
+        <ObjectBase>Objects/Obj</ObjectBase>
+        <Iteration>objDetail</Iteration>
+        <ContentMatcherTag>objDetailFieldK</ContentMatcherTag>
+        <ContentMatcherValueTag>objDetailValueR</ContentMatcherValueTag>
+        <LanguageIdentifier>Objects/Obj:lang</LanguageIdentifier>
+        <ImagesDirectory>images/</ImagesDirectory>
+    </Base>
+    <ColumnTableRelations>
+        <rel src="geographical_descriptor" target="places" />
+        <rel src="rightholder" target="institution" />
+        <rel src="author" target="people" />
+        <rel src="contributor" target="people" />
+        <rel src="format" target="formats" />
+        <rel src="color" target="colors" />
+    </ColumnTableRelations>
+</DatabaseConfiguration>
