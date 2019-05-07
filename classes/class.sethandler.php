@@ -186,6 +186,7 @@ class SetHandler {
         ));
 
         $q = "UPDATE ".$this->request[0]. ' SET ' .$fields.' WHERE id='.$id;
+        var_dump($q);
         Database::instance()->q($q);
 
         $this->data['update'] = 'complete';

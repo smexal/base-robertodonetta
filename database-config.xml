@@ -4,6 +4,7 @@
         <ContentMatcher from="Numero della copia" to="identifier" type="textShort" />
         <ContentMatcher from="Numero d'archivio della copia analogica" to="identifier" type="textShort" />
         <ContentMatcher from="Data di creazione" to="creation_date" type="textShort" />
+        <ContentMatcher from="Inexistent in Original" to="public" type="textShort" />
         <ContentMatcher from="Quantità di supporti" to="quantity" type="number" />
         <ContentMatcher from="Formato o dimensione" to="dimensions" type="textShort" />
 
